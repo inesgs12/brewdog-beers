@@ -18,6 +18,7 @@ score = 0
  beer_abv_question(score)
 end
 
+
 def beer_abv_question(score)
     prompt = TTY::Prompt.new
     pastel = Pastel.new
@@ -87,27 +88,27 @@ end
 def tagline_question(score)
     prompt = TTY::Prompt.new
     pastel = Pastel.new
-    tagline_random = rand(1..25)
-    beer_random = Beer.all.find_by(id: tagline_random)
-    sample1 = Beer.all.select{|beer| beer.id != beer_random.id}.sample
-    sample2 = Beer.all.select{|beer| beer.id != beer_random.id && beer.id != sample1.id }.sample
-    sample3 = Beer.all.select{|beer| beer.id != beer_random.id && beer.id != sample1.id && beer.id != sample2.id}.sample
-    answers = [beer_random.name, sample1.name, sample2.name, sample3.name]
+    beer_id_random = rand(1..25)
+    beer_selected = Beer.all.find_by(id: beer_id_random)
+    sample1 = Beer.all.select{|beer| beer.id != beer_selected.id}.sample
+    sample2 = Beer.all.select{|beer| beer.id != beer_selected.id && beer.id != sample1.id }.sample
+    sample3 = Beer.all.select{|beer| beer.id != beer_selected.id && beer.id != sample1.id && beer.id != sample2.id}.sample
+    answers = [beer_selected.name, sample1.name, sample2.name, sample3.name]
     all_answers = [answers.shuffle, "Exit"]
-    question = pastel.blue.bold("Which beers is described as a #{beer_random.tagline}? 🍻 ")
+    question = pastel.blue.bold("Which beers is described as a #{beer_selected.tagline}? 🍻 ")
     selection = prompt.select(question, all_answers)
 
-    if selection == beer_random.name
+    if selection == beer_selected.name
         puts pastel.green.bold("Yassss! 💃 ")
         sleep(1)
-        puts pastel.white(beer_info(beer_random.name))
+        puts pastel.white(beer_info(beer_selected.name))
         score += 1
         sleep(1)
         ingredients_question(score)
     elsif selection == sample1.name || selection == sample2.name || selection == sample3.name
-        puts pastel.red.bold("Nope, at least you tried! The correct answer is #{beer_random.name}.")
+        puts pastel.red.bold("Nope, at least you tried! The correct answer is #{beer_selected.name}.")
         sleep(1)
-        puts pastel.white(beer_info(beer_random.name))
+        puts pastel.white(beer_info(beer_selected.name))
         sleep(1)
         ingredients_question(score)
     elsif selection == "Exit"
@@ -155,13 +156,12 @@ end
 def beer_and_food_pairing(score)
     prompt = TTY::Prompt.new
     pastel = Pastel.new
-    # remove line 13 when running the main program via run.rb
-    beer_random = rand(1..25)
-    beer_name = Beer.all.find_by(id: beer_random)
+    beer_id_random = rand(1..25)
+    beer_selected = Beer.all.find_by(id:  beer_id_random)
     food_random = rand(1..77)
     food_pairing = Food.all.find_by(id: food_random)
-    bf = BeerFood.all.select {|beerfood| beerfood.beer_id == beer_name.id && beerfood.food_id == food_pairing.id}
-    question = pastel.blue.bold("Does #{beer_name.name} pair well with #{food_pairing.name}? 🤤 ")
+    bf = BeerFood.all.select {|beerfood| beerfood.beer_id == beer_selected.id && beerfood.food_id == food_pairing.id}
+    question = pastel.blue.bold("Does #{beer_selected.name} pair well with #{food_pairing.name}? 🤤 ")
     selection = prompt.yes? question
 
     if selection == false && bf.length == 0 
@@ -178,7 +178,7 @@ def beer_and_food_pairing(score)
     sleep(1)
     final_score(score)  
 end
-#add something like want to go again or would you like to go to the main menu
+
 
 def final_score(score)
     if score > 2
@@ -209,6 +209,6 @@ def play_again?
 end
 
 # binding.pry
-"Hello"
+"End"
 
 

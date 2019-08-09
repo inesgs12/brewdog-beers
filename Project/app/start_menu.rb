@@ -109,26 +109,6 @@ def name_choice
     end
 end
 
-
-
-  # if all_beer_names.include?(response)
-  # beer_info(response)
-  # puts pastel.green.bold("Would you like to find out about another beer by name?")
-  #   $cli.choose do |menu|
-  #    menu.choice(:Y) {response = $cli.ask pastel.green.bold("Okay! Which BrewDog beer would you like to find out more about?")
-  #      name_choice(response)}
-  #     menu.choice(:N) {
-  #       $cli.say(pastel.green.bold("I'll take you back to the main menu then"))
-  #       search}
-  #   end
-  # else
-  #   puts pastel.green.bold("Unknown response. Here's a list of all the BrewDog beers you can choose from:")
-  #   all_beer_names_output
-  #   response = $cli.ask pastel.green.bold("Which BrewDog beer would you like to find out more about?")
-  #   name_choice(response)
-  #   end
-
-
 def all_ingredients
   Ingredient.all
 end
@@ -184,47 +164,8 @@ end
 def beer_by_ingredient(response)
   ingredient_id_number = Ingredient.find_by(name: response).id
   BeerIngredient.where(ingredient_id: ingredient_id_number).map{|bi| bi.beer.name}
-  # iid = all_ingredient_ids[response]
-  #  relevant_records = all_beer_ingredients.select{|record| record.ingredient_id == iid}
-  #  bids = relevant_records.map{|record| record.beer_id}
-  #  beer_names = []
-  #  bids.each{|beerid|beer_names << all_beer_ids.key(beerid)}
-  # puts 
-  # # beer_names.each {|beername| puts beername}.join(" ")
 end
  
- 
-   #delete this when running all of it 
-
-#   ingredient_ids = all_ingredient_ids
-
-#   if all_ingredient_types.include?(response)
-#    iid = all_ingredient_ids[response]
-#    relevant_records = all_beer_ingredients.select{|record| record.ingredient_id == iid}
-#    bids = relevant_records.map{|record| record.beer_id}
-#    beer_names = []
-#    bids.each{|beerid|beer_names << all_beer_ids.key(beerid)}
-#  puts "the beers that contain #{response} are:"
-#  beer_names.each {|beername| puts beername}
-#   puts "Would you like to find out about more beers by ingredient?"
-#     $cli.choose do |menu|
-#      menu.choice(:Y) {response = $cli.ask "Okay! Which ingredient would you like to search by?"
-#        ingredient_choice(response)}
-#       menu.choice(:N) {
-#         $cli.say("I'll take you back to the main menu then")
-#         search}
-#     end
-#     binding.pry
-#   else
-#     puts "Unknown response. Here's a list of all the ingredients you can choose from:"
-#     all_ingredients_types_output
-#     response = $cli.ask "Which ingredient would you like to search by?"
-#     ingredient_choice(response)
-#     end
-
-
-
-
 
 def all_beer_abvs
   beer_abvs = {}
@@ -339,13 +280,6 @@ def food_pairing_choice
     elsif selection == "Beer"
       beer_selection = prompt.select(pastel.blue("Okay! Select the beer you'd like to search by."), all_beer_names.sort)
       food_pairing_by_beer(beer_selection)
-
-  # puts "How would you like to search food pairings?"
-  # $cli.choose do |menu|
-  #  menu.choice(:"By Beer") {response = all_beer_names}#$cli.ask "Okay! Enter the beer you'd like to search by, or to see a list of options type SHOW"
-    #  food_pairing_by_beer(response)}
-    # menu.choice(:"By Food") {response = $cli.ask "Okay! Enter the food you'd like to search by, or to see a list of options type SHOW"
-    #   food_pairing_by_food(response)}
     end
 end
 
@@ -368,15 +302,6 @@ def food_pairing_by_beer(response)
         sleep(1)
         search}
    end
-# elsif response == "SHOW"
-#   all_beer_names_output
-#   response = $cli.ask "Which BrewDog beer would you like to search by?"
-#   food_pairing_by_beer(response)
-#  else
-#    puts "Unknown response. Here's a list of all the BrewDog beers you can choose from:"
-#    all_beer_names_output
-#    response = $cli.ask "Which BrewDog beer would you like to search by?"
-#    food_pairing_by_beer(response)
  end
 end
 
@@ -399,15 +324,6 @@ def food_pairing_by_food(response)
         sleep(1)
         search}
    end
-# elsif response == "SHOW"
-#   all_food_names_output
-#   response = $cli.ask "Which food would you like to search by?"
-#   food_pairing_by_food(response)
-#  else
-#    puts "Unknown response. Here's a list of all the foods you can choose from:"
-#    all_food_names_output
-#    response = $cli.ask "Which food would you like to search by?"
-#    food_pairing_by_food(response)
  end
 end
 
