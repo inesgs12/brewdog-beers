@@ -39,11 +39,10 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-protection (2.0.5)
       rack
     rake (12.3.2)
-    reputs (0.0.1)
     require_all (2.0.0)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
@@ -168,7 +167,6 @@ DEPENDENCIES
   pastel
   pry
   rake
-  reputs
   require_all
   rest-client
   sinatra-activerecord
